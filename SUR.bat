@@ -1,6 +1,5 @@
 ::DISCLAIMER: this tool can be used for free, the credits to JamFlux and other authors must be visible where the ROM has been published
 @echo off
-mode con: cols=78 lines=14
 cls
 setlocal enabledelayedexpansion
 set app_name=Simple Unpack and Repack - Android Tool
@@ -9,7 +8,7 @@ title %app_name% [v2.0] [64bits] %authors%
 set authors=[by JamFlux]
 set cecho=bins\cecho.exe
 set busybox=bins\busybox.exe
-mode con: cols=78 lines=14
+mode con: cols=87 lines=16
 
 
 :dragNdrop
@@ -24,10 +23,10 @@ echo ---- XZ compression detected: >> log.txt
 echo      Extracting %~nx1 >> log.txt
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}XZ compression{#} detected, unpacking:
 echo.
@@ -41,10 +40,10 @@ for %%a in ("*.img") do set sys_image="%%a"
 ren %sys_image% system.img >nul
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}Extracting{#} system image:
 echo.
@@ -56,12 +55,12 @@ call :make_dirs
 echo ---- imgextractor.exe:  %time% -Unpacking system.img >> log.txt
 bins\imgextractor.exe "system.img" >> log.txt
 if exist system move /y system 01-Project\ >nul 2>nul
-if exist system_fs_config move /y system_fs_config 01-Project\1-Sources\fs_config >nul 2>nul
-if exist system_file_contexts move /y system_file_contexts 01-Project\1-Sources\file_contexts >nul 2>nul
-if exist system_size.txt move /y system_size.txt 01-Project\1-Sources\sys_size.txt >nul 2>nul
+if exist system_fs_config move /y system_fs_config 01-Project\temp\fs_config >nul 2>nul
+if exist system_file_contexts move /y system_file_contexts 01-Project\temp\file_contexts >nul 2>nul
+if exist system_size.txt move /y system_size.txt 01-Project\temp\sys_size >nul 2>nul
 if exist system.raw.img !busybox! rm -rf system.raw.img >nul
 if exist system.img move /y system.img 01-Project\1-Sources\ >nul 2>nul
-set /p size=<"01-Project\1-Sources\sys_size.txt"
+set /p size=<"01-Project\temp\sys_size"
 if exist 01-Project\1-Sources\system.img echo system.img format found >> 01-Project\temp\system.img.txt
 if exist 01-Project\system\system\build.prop echo SAR: System As Root ROM >> 01-Project\temp\SAR
 if exist 01-Project\temp\SAR if exist 01-Project\system\system\vendor\bin\hw (
@@ -110,10 +109,10 @@ mode con: cols=78 lines=14
 if not exist "bins\file.list" (
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-Can't continue, {04}[files.txt]{#} is missing
 echo.
@@ -128,10 +127,10 @@ exit
 set verificando=null
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{04}Error found:{#} 
 echo.
@@ -152,10 +151,10 @@ if "!verificando!"=="y" (
 :description
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 echo.
 echo.
@@ -179,10 +178,10 @@ echo      %rname% >> log.txt
 call :detect_vendor
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-ROM detected, named: {0b}!rname!{#}
 echo.
@@ -205,10 +204,10 @@ if exist 01-Project rmdir /q /s 01-Project
 if exist 02-Output rmdir /q /s 02-Output
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-Please, {0a}select{#} a ROMs .zip file
 echo.
@@ -223,10 +222,10 @@ echo      %file% >> log.txt
 call :make_dirs
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}Extracting{#} ROMs files...
 echo.
@@ -234,43 +233,13 @@ echo.
 echo.
 echo ---- Extracting ROMs files: >> log.txt
 ::--->commands
-bins\7z x "%file%" -o01-Project\1-Sources install >nul
-bins\7z x "%file%" -o01-Project\1-Sources config >nul
-bins\7z x "%file%" -o01-Project\1-Sources firmware >nul
-bins\7z x "%file%" -o01-Project\1-Sources magisk >nul
-bins\7z x "%file%" -o01-Project\1-Sources firmware-update >nul
-bins\7z x "%file%" -o01-Project\1-Sources META-INF >nul
-bins\7z e "%file%" n system.new.dat.br -o01-Project\1-Sources >nul
-bins\7z e "%file%" n system.new.dat -o01-Project\1-Sources >nul
-bins\7z e "%file%" n system.img -o01-Project\1-Sources >nul
-bins\7z e "%file%" n payload.bin -o01-Project\1-Sources >nul
-bins\7z e "%file%" n vendor.new.dat.br -o01-Project\1-Sources >nul
-bins\7z e "%file%" n vendor.new.dat -o01-Project\1-Sources >nul
-bins\7z e "%file%" n vendor.img -o01-Project\1-Sources >nul
-bins\7z e "%file%" n system.transfer.list -o01-Project\1-Sources >nul
-bins\7z e "%file%" n vendor.transfer.list -o01-Project\1-Sources >nul
-bins\7z e "%file%" n boot.img -o01-Project\1-Sources >nul
+bins\7z x "%file%" -o01-Project\1-Sources >nul
+::bins\7z x "%file%" -o01-Project\1-Sources META-INF >nul
 ::bins\7z e "%file%" n file_contexts -o01-Project\1-Sources >nul
-::bins\7z e "%file%" n file_contexts.bin -o01-Project\1-Sources >nul
 ::<---commands
-if exist 01-Project\1-Sources\install echo      install [OK] >> log.txt
-if exist 01-Project\1-Sources\config echo      config [OK] >> log.txt
-if exist 01-Project\1-Sources\firmware echo      firmware [OK] >> log.txt
-if exist 01-Project\1-Sources\magisk echo      magisk [OK] >> log.txt
-if exist 01-Project\1-Sources\firmware-update echo      firmware-update [OK] >> log.txt
-if exist 01-Project\1-Sources\META-INF echo      META-INF [OK] >> log.txt
-if exist 01-Project\1-Sources\system.new.dat.br echo      system.new.dat.br [OK] >> log.txt
-if exist 01-Project\1-Sources\system.new.dat echo      system.new.dat [OK] >> log.txt
-if exist 01-Project\1-Sources\system.img echo      system.img [OK] >> log.txt
-if exist 01-Project\1-Sources\payload.bin echo      payload.bin [OK] >> log.txt
-if exist 01-Project\1-Sources\vendor.new.dat.br echo      vendor.new.dat.br [OK] >> log.txt
-if exist 01-Project\1-Sources\vendor.new.dat echo      vendor.new.dat [OK] >> log.txt
-if exist 01-Project\1-Sources\vendor.img echo      vendor.img [OK] >> log.txt
-if exist 01-Project\1-Sources\system.transfer.list echo      system.transfer.list [OK] >> log.txt
-if exist 01-Project\1-Sources\vendor.transfer.list echo      vendor.transfer.list [OK] >> log.txt
-if exist 01-Project\1-Sources\boot.img echo      boot.img [OK] >> log.txt
-if exist 01-Project\1-Sources\file_contexts echo      file_contexts [OK] >> log.txt
-if exist 01-Project\1-Sources\file_contexts.bin echo      file_contexts.bin [OK] >> log.txt
+for /r 01-Project\1-Sources %%a in (*) do (
+echo      %%~nxa [OK] >> log.txt
+)
 if exist 01-Project\1-Sources\vendor.* (goto un_vendor) else goto identify_format
 
 
@@ -278,10 +247,10 @@ if exist 01-Project\1-Sources\vendor.* (goto un_vendor) else goto identify_forma
 echo ---- Vendor image detected: >> log.txt
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}Vendor image detected.{#} Please, decide:
 echo.
@@ -297,12 +266,12 @@ if not "%number%"=="1" if not "%number%"=="2" goto un_vendor
 echo      Extracting vendor image... >> log.txt
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Unpacking Vendor{#} image...
+%cecho%  	-Unpacking {0a}vendor{#} image...
 echo.
 echo.
 echo.
@@ -317,19 +286,20 @@ echo ---- imgextractor.exe:  %time% -Unpacking vendor.img >> log.txt
 if exist 01-Project\1-Sources\vendor.img bins\imgextractor 01-Project\1-Sources\vendor.img 01-Project\vendor >>log.txt
 
 ::<---commands
-move /y 01-Project\vendor_size.txt 01-Project\1-Sources\vend_size.txt >nul 2>nul
-if exist 01-Project\1-Sources\vend_size.txt set /p vsize=<"01-Project\1-Sources\vend_size.txt"
+move /y 01-Project\vendor_size.txt 01-Project\temp\vend_size >nul 2>nul
+if exist 01-Project\temp\vend_size set /p vsize=<"01-Project\temp\vend_size"
 if exist 01-Project\1-Sources\vendor.new.dat !busybox! rm -rf 01-Project\1-Sources\vendor.new.dat >nul
 if exist 01-Project\1-Sources\vendor.transfer.list !busybox! rm -rf 01-Project\1-Sources\vendor.transfer.list >nul
 if exist 01-Project\1-Sources\vendor.img !busybox! rm -rf 01-Project\1-Sources\vendor.img >nul
-if exist 01-Project\1-Sources\vendor_fs_config move /y 01-Project\1-Sources\vendor_fs_config 01-Project\1-Sources\fs_configv >nul 2>nul
-move /y 01-Project\1-Sources\vendor_file_contexts 01-Project\1-Sources\file_contextsv >nul 2>nul
+if exist 01-Project\1-Sources\vendor_fs_config move /y 01-Project\1-Sources\vendor_fs_config 01-Project\temp\fs_configv >nul 2>nul
+move /y 01-Project\1-Sources\vendor_file_contexts 01-Project\temp\file_contextsv >nul 2>nul
 if exist 01-Project\vendor\lib\hw echo      Vendor image extracted [OK] >> log.txt
 
 
 :identify_format
 echo ---- System compression format is: >> log.txt
 ::Looking for system compression format
+if exist 01-Project\1-Sources\*.tar.md5 echo Possible Samsung's stock ROM format found >> 01-Project\temp\tar.md5.txt
 if exist 01-Project\1-Sources\system.new.dat.br echo new.dat.br format found >> 01-Project\temp\system.new.dat.br.txt
 if exist 01-Project\1-Sources\system.new.dat echo new.dat format found >> 01-Project\temp\system.new.dat.txt
 if exist 01-Project\1-Sources\system.img echo system.img format found >> 01-Project\temp\system.img.txt
@@ -337,7 +307,8 @@ if exist 01-Project\1-Sources\payload.bin echo payload.bin format found >> 01-Pr
 if exist 01-Project\1-Sources\payload.bin echo payload.bin format found >> 01-Project\temp\payload.info
 for /r 01-Project\temp %%a in (*txt) do set format=%%~na
 echo      %format% >> log.txt
-if not "%format%"=="system.new.dat.br" if not "%format%"=="system.new.dat" if not "%format%"=="system.img" goto not_supported
+if not "%format%"=="system.new.dat.br" if not "%format%"=="system.new.dat" if not "%format%"=="system.img" if not "%format%"=="tar.md5" goto not_supported
+if "%format%"=="tar.md5" call :un_tar
 if exist 01-Project\1-Sources\payload.bin call :un_payload
 if exist 01-Project\1-Sources\system.img call :Extract_SYS
 if exist 01-Project\1-Sources\system.new.dat call :un_pack_dat
@@ -348,10 +319,10 @@ if exist 01-Project\1-Sources\system.new.dat.br call :un_brotli
 if exist 01-Project rmdir /q /s 01-Project
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-Sorry, format {04}not supported{#}
 echo.
@@ -363,10 +334,10 @@ timeout /t 3 /nobreak > nul & exit
 :already_deodexed
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}Can't proceed:{#}
 echo.
@@ -382,12 +353,12 @@ timeout /t 2 /nobreak > nul & goto ROMs_menu
 echo ---- Extracting system.img files: >> log.txt
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Extracting system{#} Image...
+%cecho%  	-Extracting {0a}system{#} Image...
 echo.
 echo.
 echo.
@@ -395,26 +366,48 @@ echo.
 echo ---- imgextractor.exe:  %time% -Unpacking system.img >> log.txt
 if exist 01-Project\1-Sources\system.img bins\imgextractor 01-Project\1-Sources\system.img 01-Project\system >> log.txt
 ::<---commands
+::vendor extraction::
 if exist 01-Project\1-Sources\vendor.img echo ---- imgextractor.exe:  %time% -Unpacking vendor.img >> log.txt
 if exist 01-Project\1-Sources\vendor.img (
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Extracting vendor{#} Image...
+%cecho%  	-Extracting {0a}vendor{#} Image...
 echo.
 echo.
 bins\imgextractor 01-Project\1-Sources\vendor.img 01-Project\vendor >>log.txt
-move /y 01-Project\vendor_size.txt 01-Project\1-Sources\vend_size.txt >nul 2>nul
-if exist 01-Project\1-Sources\vend_size.txt set /p vsize=<"01-Project\1-Sources\vend_size.txt"
+move /y 01-Project\vendor_size.txt 01-Project\temp\vend_size >nul 2>nul
+if exist 01-Project\temp\vend_size set /p vsize=<"01-Project\temp\vend_size"
 if exist 01-Project\1-Sources\vendor.img !busybox! rm -rf 01-Project\1-Sources\vendor.img >nul
-if exist 01-Project\1-Sources\vendor_fs_config move /y 01-Project\1-Sources\vendor_fs_config 01-Project\1-Sources\fs_configv >nul 2>nul
-move /y 01-Project\1-Sources\vendor_file_contexts 01-Project\1-Sources\file_contextsv >nul 2>nul
+if exist 01-Project\1-Sources\vendor_fs_config move /y 01-Project\1-Sources\vendor_fs_config 01-Project\temp\fs_configv >nul 2>nul
+move /y 01-Project\1-Sources\vendor_file_contexts 01-Project\temp\file_contextsv >nul 2>nul
 if exist 01-Project\vendor\lib\hw echo      Vendor image extracted [OK] >> log.txt
 )
+::odm extraction::
+if exist 01-Project\1-Sources\odm.img echo ---- imgextractor.exe:  %time% -Unpacking odm.img >> log.txt
+if exist 01-Project\1-Sources\odm.img (
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+echo.
+%cecho%  	-Extracting {0a}odm{#} Image...
+echo.
+echo.
+bins\imgextractor 01-Project\1-Sources\odm.img 01-Project\odm >>log.txt
+move /y 01-Project\odm_size.txt 01-Project\temp\odm_size >nul 2>nul
+if exist 01-Project\1-Sources\odm.img !busybox! rm -rf 01-Project\1-Sources\odm.img >nul
+if exist 01-Project\1-Sources\odm_fs_config move /y 01-Project\1-Sources\odm_fs_config 01-Project\temp\fs_config_odm >nul 2>nul
+move /y 01-Project\1-Sources\odm_file_contexts 01-Project\temp\file_contexts_odm >nul 2>nul
+if exist 01-Project\odm\app echo      Odm image extracted [OK] >> log.txt
+)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 echo ---- ROM's files extraction finished: %time% >> log.txt
 set ENDTIME=%TIME%
 call :time
@@ -423,11 +416,11 @@ call :boot_status
 call :detect_vendor
 if exist 01-Project\system\system\build.prop echo      system.img extracted [OK] [SAR] >> log.txt
 if exist 01-Project\system\build.prop echo      system.img extracted [OK] [AOnly] >> log.txt
-move /y 01-Project\system_size.txt 01-Project\1-Sources\sys_size.txt >nul 2>nul
-move /y 01-Project\1-Sources\system_file_contexts 01-Project\1-Sources\file_contexts >nul 2>nul
-if exist 01-Project\1-Sources\file_contextsv type 01-Project\1-Sources\file_contextsv >> 01-Project\1-Sources\file_contexts
-if exist 01-Project\1-Sources\system_fs_config move /y 01-Project\1-Sources\system_fs_config 01-Project\1-Sources\fs_config >nul 2>nul
-set /p size=<"01-Project\1-Sources\sys_size.txt"
+move /y 01-Project\system_size.txt 01-Project\temp\sys_size >nul 2>nul
+move /y 01-Project\1-Sources\system_file_contexts 01-Project\temp\file_contexts >nul 2>nul
+if exist 01-Project\temp\file_contextsv type 01-Project\temp\file_contextsv >> 01-Project\temp\file_contexts
+if exist 01-Project\1-Sources\system_fs_config move /y 01-Project\1-Sources\system_fs_config 01-Project\temp\fs_config >nul 2>nul
+set /p size=<"01-Project\temp\sys_size"
 if exist 01-Project\system\system\build.prop echo SAR: System As Root ROM >> 01-Project\temp\SAR
 if exist 01-Project\temp\SAR if exist 01-Project\system\system\vendor\bin\hw (
 !busybox! rm -rf 01-Project\temp\SAR >nul
@@ -439,16 +432,91 @@ if exist 01-Project\1-Sources\system.new.dat !busybox! rm -rf 01-Project\1-Sourc
 if exist 01-Project\1-Sources\system.transfer.list !busybox! rm -rf 01-Project\1-Sources\system.transfer.list >nul
 goto ROMs_menu
 
+:un_tar
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+echo.
+%cecho%  	-Extracting stock {0a}tar.md5{#} files...
+echo.
+echo.
+echo.
+echo ---- Stock tar.md5 format found: >> log.txt
+echo      Extracting compressed files... >> log.txt
+if not exist "01-Project\temp\untar" mkdir "01-Project\temp\untar" >nul
+if not exist 01-Project\temp\untar\all mkdir 01-Project\temp\untar\all >nul
+if not exist 01-Project\temp\untar\sparse mkdir 01-Project\temp\untar\sparse >nul
+for /r 01-Project\1-Sources %%a in (*tar.md5) do (
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+echo.
+%cecho%  	-Extracting stock {0a}tar.md5{#} files...
+echo.
+%cecho%  	-{0a}Processing: {#}
+echo.
+echo         %%~na
+echo.
+bins\7z e "%%a" -o01-Project\temp\untar\all -y >nul
+echo      Extracting %%~na.md5 >> log.txt
+)
+for /r 01-Project\temp\untar\all %%a in (*img.lz4) do (
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+echo.
+%cecho%  	-Decoding {0a}lz4{#} compression...
+echo.
+%cecho%  	-Processing: {0a}%%~na{#}
+echo.
+echo.
+bins\7z x "%%a" -o01-Project\temp\untar\sparse >nul
+::bins\lz4 -d -f %%a %%~naflux >nul 2>nul
+echo      Decoding lz4 %%~na >> log.txt
+)
+if exist 01-Project\temp\untar\all !busybox! rm -rf 01-Project\temp\untar\all >nul
+for /r 01-Project\1-Sources %%a in (*.tar.md5) do (
+del %%a >nul
+)
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+echo.
+%cecho%  	-Converting to {0a}ext4{#} image...
+echo.
+if exist 01-Project\temp\untar\sparse\system.img bins\simg2img 01-Project\temp\untar\sparse\system.img 01-Project\1-Sources\system.img >nul 2>nul
+if exist 01-Project\1-Sources\system.img echo      system.img convertion [OK] >> log.txt
+if exist 01-Project\temp\untar\sparse\vendor.img bins\simg2img 01-Project\temp\untar\sparse\vendor.img 01-Project\1-Sources\vendor.img >nul 2>nul
+if exist 01-Project\1-Sources\vendor.img echo      vendor.img convertion [OK] >> log.txt
+if exist 01-Project\temp\untar\sparse\odm.img bins\simg2img 01-Project\temp\untar\sparse\odm.img 01-Project\1-Sources\odm.img >nul 2>nul
+if exist 01-Project\1-Sources\odm.img echo      odm.img convertion [OK] >> log.txt
+if exist 01-Project\temp\untar\sparse\boot.img copy /y 01-Project\temp\untar\sparse\boot.img 01-Project\1-Sources >nul 2>nul
+if exist 01-Project\1-Sources\boot.img echo      boot.img extraction [OK] >> log.txt
+if exist 01-Project\temp\untar !busybox! rm -rf 01-Project\temp\untar >nul
+goto:eof
+
 
 :un_payload
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Extracting payload.bin{#} images...
+%cecho%  	-Extracting {0a}payload.bin{#} images...
 echo.
 echo.
 echo.
@@ -474,12 +542,12 @@ goto:eof
 :un_brotli
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Decompressing brotli{#} format...
+%cecho%  	-Decompressing {0a}brotli{#} format...
 echo.
 echo.
 echo.
@@ -495,12 +563,12 @@ goto un_pack_dat
 :un_pack_dat
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Extracting sparse{#} system format...
+%cecho%  	-Extracting {0a}sparse{#} system format...
 echo.
 echo.
 echo.
@@ -531,10 +599,10 @@ echo      ROM's name is: %rname% >> log.txt
 echo      Deodexed: %status% - Format: %format% - System size: %size% - Api: %api% >> log.txt
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}  -DM Verity: {0b}!boot_status!{#}
@@ -554,10 +622,10 @@ if not "%number%"=="1" if not "%number%"=="2" if not "%number%"=="3"  goto ROMs_
 :resize
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -567,9 +635,9 @@ echo.
 echo.
 ::--->commands
 set /p size=*       Change system image size to: 
-if exist 01-Project\1-Sources\sys_size.txt !busybox! rm -rf 01-Project\1-Sources\sys_size.txt >nul
-echo %size% >> 01-Project\1-Sources\sys_size.txt
-set /p size=<"01-Project\1-Sources\sys_size.txt"
+if exist 01-Project\temp\sys_size !busybox! rm -rf 01-Project\temp\sys_size >nul
+echo %size% >> 01-Project\temp\sys_size
+set /p size=<"01-Project\temp\sys_size"
 ::<---commands
 goto ROMs_menu
 
@@ -579,10 +647,10 @@ call :get_ROMs_name
 call :rom_info
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -607,10 +675,10 @@ if not "%number%"=="1" if not "%number%"=="2" if not "%number%"=="3" if not "%nu
 :rom_name
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -661,10 +729,10 @@ goto rom_option
 :zipaligning
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-{0a}Zipaligning{#} ROM's apks and jars...
 echo.
@@ -684,20 +752,21 @@ goto rom_option
 :file_contexts_finder
 echo      file_contexts not found, looking for it... >> log.txt
 if exist 01-Project\1-Sources\file_contexts !busybox! rm -rf 01-Project\1-Sources\file_contexts >nul 2>nul
+if exist 01-Project\temp\file_contexts !busybox! rm -rf 01-Project\temp\file_contexts >nul 2>nul
 ::--->commands
-bins\fc_finder "01-Project" "01-Project\1-Sources\un_file_contexts" "plat_file_contexts|vendor_file_contexts|nonplat_file_contexts"
-if exist 01-Project\1-Sources\un_file_contexts !busybox! sort -u < 01-Project\1-Sources\un_file_contexts >> 01-Project/1-Sources/file_contexts
-if exist 01-Project\1-Sources\un_file_contexts !busybox! rm -rf 01-Project\1-Sources\un_file_contexts >nul 2>nul
-if exist 01-Project\1-Sources\file_contexts bins\dos2unix -q 01-Project\1-Sources\file_contexts
+bins\fc_finder "01-Project" "01-Project\temp\un_file_contexts" "plat_file_contexts|vendor_file_contexts|nonplat_file_contexts"
+if exist 01-Project\temp\un_file_contexts !busybox! sort -u < 01-Project\temp\un_file_contexts >> 01-Project/temp/file_contexts
+if exist 01-Project\temp\un_file_contexts !busybox! rm -rf 01-Project\temp\un_file_contexts >nul 2>nul
+if exist 01-Project\temp\file_contexts bins\dos2unix -q 01-Project\temp\file_contexts
 ::<---commands
-if exist 01-Project\1-Sources\file_contexts goto rebuild_yes
+if exist 01-Project\temp\file_contexts goto rebuild_yes
 
 
 :rebuild
 echo ---- Rebuild process started: %time% >> log.txt
 set STARTTIME=%TIME%
 echo      Checking requisites... >> log.txt
-if exist 01-Project\1-Sources\file_contexts (goto rebuild_yes) else (goto file_contexts_finder)
+if exist 01-Project\temp\file_contexts (goto rebuild_yes) else (goto file_contexts_finder)
 :rebuild_yes
 echo      file_contexts exists [OK] >> log.txt
 if exist 01-Project\temp\1.version !busybox! rm -rf 01-Project\temp\1.version
@@ -711,21 +780,28 @@ if %api% geq 24 echo 4 >> 01-Project\temp\4.version
 for /r 01-Project\temp %%a in (*version) do set version=%%~na
 echo      Sparse compression value is:  %version% (No needed for system.img format) >> log.txt
 if exist 01-Project\temp\payload.info goto make_payload
-if "!boot_status!"=="Null" goto make_payload
+if "!boot_status!"=="Null" goto make_img_without_zipping
+if "!format!"=="tar.md5" goto make_img_without_zipping
 if "!format!"=="system.img" goto make_img
 if "!format!"=="system.new.dat" goto make_dat
 if "!format!"=="system.new.dat.br" goto make_dat_br
 
+:img_mover
+for /r 01-Project\1-Sources %%a in (*.img) do (
+move /y %%a 02-Output >nul 2>nul
+)
+if exist 02-Output\boot.img copy /y 02-Output\boot.img 01-Project\1-Sources >nul 2>nul
+goto:eof
 
 :make_payload
 call :get_ROMs_name
 if not exist 02-Output mkdir 02-Output
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -739,18 +815,55 @@ echo.
 ::--->commands
 if exist 01-Project\temp\SAR (
 	echo      Repacking to: %format% format... [SAR] >> log.txt
-    bins\make_ext4fs -T 2009110000 -S 01-Project/1-Sources/file_contexts -C 01-Project\1-Sources\fs_config -l %size% -L / -a / -s %~dp0/02-Output/system.img "01-Project/system/" >nul 2>nul>> log.txt
+    bins\make_ext4fs -T 2009110000 -S 01-Project/temp/file_contexts -C 01-Project\temp\fs_config -l %size% -L / -a / -s 01-Project/1-Sources/system.img "01-Project/system/" >nul 2>nul>> log.txt
  ) else ( 
  	echo      Repacking to: %format% format... [Aonly] >> log.txt
-    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\1-Sources\file_contexts -C 01-Project\1-Sources\fs_config -l %size% -a system %~dp0\02-Output\system.img 01-Project\system\ >nul 2>nul>> log.txt
+    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config -l %size% -a system 01-Project\1-Sources\system.img 01-Project\system\ >nul 2>nul>> log.txt
  )
  ::<---commands
-if not exist 02-Output\system.img echo      Repacking system to: %format% [Failed] >> log.txt
-if not exist 02-Output\system.img goto ROMs_menu
-if exist 02-Output\system.img echo      Repacking to: %format% [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.img echo      Repacking system to: %format% [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.img goto ROMs_menu
+if exist 01-Project\1-Sources\system.img echo      Repacking to: %format% [OK] >> log.txt
 if exist 01-Project\vendor call :build_vendor2
-if exist 01-Project\1-Sources\boot.img copy /y 01-Project\1-Sources\boot.img 02-Output >nul 2>nul
+call :img_mover
 if exist bins\fastboot.7z bins\7z e bins\fastboot.7z -o02-Output >nul
+goto finish
+
+
+:make_img_without_zipping
+call :get_ROMs_name
+if not exist 02-Output mkdir 02-Output
+cls
+echo.
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
+echo.
+echo         ***************************************************************
+%cecho%  	{0a}ROM's Info{#}
+echo.
+%cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
+echo.
+%cecho%  	-Format: {0b}system.img{#}  -System size: {0b}!size!{#} -Api: {0b}!api!{#}
+echo.
+echo.
+%cecho%  	-{0a}Repacking{#} to its original format...
+echo.
+echo.
+::--->commands
+if exist 01-Project\temp\SAR (
+	echo      Repacking to: system.img format... [SAR] >> log.txt
+    bins\make_ext4fs -T 2009110000 -S 01-Project/temp/file_contexts -C 01-Project\temp\fs_config -l %size% -L / -a / 01-Project/1-Sources/system.img "01-Project/system/" >nul 2>nul>> log.txt
+ ) else ( 
+ 	echo      Repacking to: system.img format... [Aonly] >> log.txt
+    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config -l %size% system 01-Project\1-Sources\system.img 01-Project\system\ >nul 2>nul>> log.txt
+ )
+ ::<---commands
+if not exist 01-Project\1-Sources\system.img echo      Repacking system to: system.img [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.img goto ROMs_menu
+if exist 01-Project\1-Sources\system.img echo      Repacking to: system.img [OK] >> log.txt
+if exist 01-Project\vendor call :build_vendor2
+if exist 01-Project\odm call :build_odm
+call :img_mover
 goto finish
 
 
@@ -759,10 +872,10 @@ call :get_ROMs_name
 if not exist 02-Output mkdir 02-Output
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -776,16 +889,17 @@ echo.
 ::--->commands
 if exist 01-Project\temp\SAR (
 	echo      Repacking to: %format% format... [SAR] >> log.txt
-    bins\make_ext4fs -T 2009110000 -S 01-Project/1-Sources/file_contexts -C 01-Project\1-Sources\fs_config -l %size% -L / -a / %~dp0/02-Output/system.img "01-Project/system/" >nul 2>nul>> log.txt
+    bins\make_ext4fs -T 2009110000 -S 01-Project/temp/file_contexts -C 01-Project\temp\fs_config -l %size% -L / -a / 01-Project/1-Sources/system.img "01-Project/system/" >nul 2>nul>> log.txt
  ) else ( 
  	echo      Repacking to: %format% format... [Aonly] >> log.txt
-    bins\make_ext4fs -L system -T 2009110000 -S 01-Project\1-Sources\file_contexts -C 01-Project\1-Sources\fs_config -l %size% -a system %~dp0\02-Output\system.img 01-Project\system\ >nul 2>nul>> log.txt
+    bins\make_ext4fs -L system -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config -l %size% -a system 01-Project\1-Sources\system.img 01-Project\system\ >nul 2>nul>> log.txt
  )
  ::<---commands
-if not exist 02-Output\system.img echo      Repacking system to: %format% [Failed] >> log.txt
-if not exist 02-Output\system.img goto ROMs_menu
-if exist 02-Output\system.img echo      Repacking to: %format% [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.img echo      Repacking system to: %format% [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.img goto ROMs_menu
+if exist 01-Project\1-Sources\system.img echo      Repacking to: %format% [OK] >> log.txt
 if exist 01-Project\vendor call :build_vendor2
+call :img_mover
 call :just_zip
 goto finish
 
@@ -795,10 +909,10 @@ call :get_ROMs_name
 if not exist 02-Output mkdir 02-Output
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -812,34 +926,34 @@ echo.
 ::--->commands
 if exist 01-Project\temp\SAR (
 	echo      Repacking to: %format% format... [SAR] >> log.txt
-    bins\make_ext4fs -T 2009110000 -S 01-Project/1-Sources/file_contexts -C 01-Project\1-Sources\fs_config -l %size% -L / -a / -s %~dp0/02-Output/system.img "01-Project/system/" >nul 2>nul>> log.txt
+    bins\make_ext4fs -T 2009110000 -S 01-Project/temp/file_contexts -C 01-Project\temp\fs_config -l %size% -L / -a / -s 01-Project/1-Sources/system.img "01-Project/system/" >nul 2>nul>> log.txt
  ) else ( 
  	echo      Repacking to: %format% format... [Aonly] >> log.txt
-    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\1-Sources\file_contexts -C 01-Project\1-Sources\fs_config -l %size% -a system %~dp0\02-Output\system.img 01-Project\system\ >nul 2>nul>> log.txt
+    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config -l %size% -a system 01-Project\1-Sources\system.img 01-Project\system\ >nul 2>nul>> log.txt
  )
 ::<---commands
-if not exist 02-Output\system.img echo      Repacking system.img [Failed] >> log.txt
-if not exist 02-Output\system.img goto ROMs_menu
-if exist 02-Output\system.img echo      Repacking system.img [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.img echo      Repacking system.img [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.img goto ROMs_menu
+if exist 01-Project\1-Sources\system.img echo      Repacking system.img [OK] >> log.txt
 if exist 01-Project\vendor call :build_vendor
 ::--------------new.dat part--------------::
 timeout /t 1 /nobreak >nul
 echo ---- img2sdat.exe:  %time% -Repacking to sparse android data image [system.new.DAT] >> log.txt
-if exist %~dp0\02-Output\system.img bins\img2sdat %~dp0\02-Output\system.img  -o %~dp0\02-Output -v %version% >> log.txt
+if exist 01-Project\1-Sources\system.img bins\img2sdat 01-Project\1-Sources\system.img  -o 01-Project\1-Sources -v %version% >> log.txt
 timeout /t 1 /nobreak >nul
-if exist %~dp0\02-Output\vendor.img echo      img2sdat.exe:  %time% -Repacking to sparse android data image [vendor.new.DAT] >> log.txt
-if exist %~dp0\02-Output\vendor.img bins\img2sdat %~dp0\02-Output\vendor.img  -o %~dp0\02-Output -v %version% -p vendor >> log.txt
+if exist 01-Project\1-Sources\vendor.img echo      img2sdat.exe:  %time% -Repacking to sparse android data image [vendor.new.DAT] >> log.txt
+if exist 01-Project\1-Sources\vendor.img bins\img2sdat 01-Project\1-Sources\vendor.img  -o 01-Project\1-Sources -v %version% -p vendor >> log.txt
 timeout /t 1 /nobreak >nul
-if not exist 02-Output\system.new.dat echo      Repacking system.new.dat [Failed] >> log.txt
-if not exist 02-Output\system.new.dat goto ROMs_menu
-if exist 02-Output\system.new.dat echo      Repacking system.new.dat [OK] >> log.txt
-if exist 02-Output\vendor.new.dat echo      Repacking vendor.new.dat [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat echo      Repacking system.new.dat [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat goto ROMs_menu
+if exist 01-Project\1-Sources\system.new.dat echo      Repacking system.new.dat [OK] >> log.txt
+if exist 01-Project\1-Sources\vendor.new.dat echo      Repacking vendor.new.dat [OK] >> log.txt
 ::--------------new.dat part--------------::
-if exist %~dp0\02-Output\system.img !busybox! rm -rf %~dp0\02-Output\system.img >nul
-if exist %~dp0\02-Output\vendor.img !busybox! rm -rf %~dp0\02-Output\vendor.img >nul
+if exist 01-Project\1-Sources\system.img !busybox! rm -rf 01-Project\1-Sources\system.img >nul
+if exist 01-Project\1-Sources\vendor.img !busybox! rm -rf 01-Project\1-Sources\vendor.img >nul
 ::--->commands
-fsutil file createnew %~dp0\02-Output\system.patch.dat 0 >nul
-fsutil file createnew %~dp0\02-Output\vendor.patch.dat 0 >nul
+if exist 01-Project\system fsutil file createnew 01-Project\1-Sources\system.patch.dat 0 >nul
+if exist 01-Project\vendor fsutil file createnew 01-Project\1-Sources\vendor.patch.dat 0 >nul
 ::<---commands
 call :just_zip
 goto finish
@@ -850,10 +964,10 @@ call :get_ROMs_name
 if not exist 02-Output mkdir 02-Output
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -867,45 +981,47 @@ echo.
 ::--->commands
 if exist 01-Project\temp\SAR (
 	echo      Repacking to: %format% format... [SAR] >> log.txt
-    bins\make_ext4fs -T 2009110000 -S 01-Project/1-Sources/file_contexts -C 01-Project\1-Sources\fs_config -l %size% -L / -a / -s %~dp0/02-Output/system.img "01-Project/system/" >nul 2>nul>> log.txt
+    bins\make_ext4fs -T 2009110000 -S 01-Project/temp/file_contexts -C 01-Project\temp\fs_config -l %size% -L / -a / -s 01-Project/1-Sources/system.img "01-Project/system/" >nul 2>nul>> log.txt
  ) else ( 
  	echo      Repacking to: %format% format... [Aonly] >> log.txt
-    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\1-Sources\file_contexts -C 01-Project\1-Sources\fs_config -l %size% -a system %~dp0\02-Output\system.img 01-Project\system\ >nul 2>nul>> log.txt
+    bins\make_ext4fs -s -L system -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config -l %size% -a system 01-Project\1-Sources\system.img 01-Project\system\ >nul 2>nul>> log.txt
  )
 ::<---commands
-if not exist 02-Output\system.img echo      Repacking system.img [Failed] >> log.txt
-if not exist 02-Output\system.img goto ROMs_menu
-if exist 02-Output\system.img echo      Repacking system.img [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.img echo      Repacking system.img [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.img goto ROMs_menu
+if exist 01-Project\1-Sources\system.img echo      Repacking system.img [OK] >> log.txt
 if exist 01-Project\vendor call :build_vendor
 ::--------------new.dat part--------------::
 timeout /t 1 /nobreak >nul
 echo ---- img2sdat.exe:  %time% -Repacking to sparse android data image [system.new.DAT] >> log.txt
-if exist %~dp0\02-Output\system.img bins\img2sdat %~dp0\02-Output\system.img  -o %~dp0\02-Output -v %version% >> log.txt
+if exist 01-Project\1-Sources\system.img bins\img2sdat 01-Project\1-Sources\system.img  -o 01-Project\1-Sources -v %version% >> log.txt
 timeout /t 1 /nobreak >nul
-if exist %~dp0\02-Output\vendor.img echo ---- img2sdat.exe:  %time% -Repacking to sparse android data image [vendor.new.DAT] >> log.txt
-if exist %~dp0\02-Output\vendor.img bins\img2sdat %~dp0\02-Output\vendor.img  -o %~dp0\02-Output -v %version% -p vendor >> log.txt
+if exist 01-Project\1-Sources\vendor.img echo ---- img2sdat.exe:  %time% -Repacking to sparse android data image [vendor.new.DAT] >> log.txt
+if exist 01-Project\1-Sources\vendor.img bins\img2sdat 01-Project\1-Sources\vendor.img  -o 01-Project\1-Sources -v %version% -p vendor >> log.txt
 timeout /t 1 /nobreak >nul
-if not exist 02-Output\system.new.dat echo      Repacking system.new.dat [Failed] >> log.txt
-if not exist 02-Output\system.new.dat goto ROMs_menu
-if exist 02-Output\system.new.dat echo      Repacking system.new.dat [OK] >> log.txt
-if exist 02-Output\vendor.new.dat echo      Repacking vendor.new.dat [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat echo      Repacking system.new.dat [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat goto ROMs_menu
+if exist 01-Project\1-Sources\system.new.dat echo      Repacking system.new.dat [OK] >> log.txt
+if exist 01-Project\1-Sources\vendor.new.dat echo      Repacking vendor.new.dat [OK] >> log.txt
 ::--------------new.dat part--------------::
 ::--------------new.dat.br part--------------::
 timeout /t 1 /nobreak >nul
-if exist %~dp0\02-Output\system.new.dat bins\brotli.exe -6 -j -w 24 %~dp0\02-Output\system.new.dat >nul 2>nul
+if exist 01-Project\1-Sources\system.new.dat bins\brotli.exe -6 -j -w 24 01-Project\1-Sources\system.new.dat >nul 2>nul
 timeout /t 1 /nobreak >nul
-if exist %~dp0\02-Output\vendor.new.dat bins\brotli.exe -6 -j -w 24 %~dp0\02-Output\vendor.new.dat >nul 2>nul
+if exist 01-Project\1-Sources\vendor.new.dat bins\brotli.exe -6 -j -w 24 01-Project\1-Sources\vendor.new.dat >nul 2>nul
 timeout /t 1 /nobreak >nul
-if not exist 02-Output\system.new.dat.br echo      Repacking system.new.dat.br [Failed] >> log.txt
-if not exist 02-Output\system.new.dat.br goto ROMs_menu
-if exist 02-Output\system.new.dat.br echo      Repacking system.new.dat.br [OK] >> log.txt
-if exist 02-Output\vendor.new.dat.br echo      Repacking vendor.new.dat.br [OK] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat.br echo      Repacking system.new.dat.br [Failed] >> log.txt
+if not exist 01-Project\1-Sources\system.new.dat.br goto ROMs_menu
+if exist 01-Project\1-Sources\system.new.dat.br echo      Repacking system.new.dat.br [OK] >> log.txt
+if exist 01-Project\1-Sources\vendor.new.dat.br echo      Repacking vendor.new.dat.br [OK] >> log.txt
 ::--------------new.dat.br part--------------::
-if exist %~dp0\02-Output\system.img !busybox! rm -rf %~dp0\02-Output\system.img >nul
-if exist %~dp0\02-Output\vendor.img !busybox! rm -rf %~dp0\02-Output\vendor.img >nul
+if exist 01-Project\1-Sources\system.img !busybox! rm -rf 01-Project\1-Sources\system.img >nul
+if exist 01-Project\1-Sources\vendor.img !busybox! rm -rf 01-Project\1-Sources\vendor.img >nul
+if exist 01-Project\1-Sources\system.new.dat !busybox! rm -rf 01-Project\1-Sources\system.new.dat >nul
+if exist 01-Project\1-Sources\vendor.new.dat !busybox! rm -rf 01-Project\1-Sources\vendor.new.dat >nul
 ::--->commands
-fsutil file createnew %~dp0\02-Output\system.patch.dat 0 >nul
-fsutil file createnew %~dp0\02-Output\vendor.patch.dat 0 >nul
+if exist 01-Project\system fsutil file createnew 01-Project\1-Sources\system.patch.dat 0 >nul
+if exist 01-Project\vendor fsutil file createnew 01-Project\1-Sources\vendor.patch.dat 0 >nul
 ::<---commands
 call :just_zip
 goto finish
@@ -915,17 +1031,30 @@ goto finish
 echo ---- make_ext4fs.exe:  %time% -Repacking to sparse vendor.img >> log.txt
 echo                         used commands: make_ext4fs -s -L vendor -T 2009110000 -S file_contextsv -C fs_configv -l %vsize% -a vendor vendor.img vendor\ >> log.txt
 ::--->commands
-bins\make_ext4fs -s -L vendor -T 2009110000 -S 01-Project\1-Sources\file_contextsv -C 01-Project\1-Sources\fs_configv -l %vsize% -a vendor %~dp0\02-Output\vendor.img 01-Project\vendor\ >nul 2>nul >> log.txt
+bins\make_ext4fs -s -L vendor -T 2009110000 -S 01-Project\temp\file_contextsv -C 01-Project\temp\fs_configv -l %vsize% -a vendor 01-Project\1-Sources\vendor.img 01-Project\vendor\ >nul 2>nul >> log.txt
 ::<---commands
-if exist 02-Output\vendor.img echo      Repacking vendor.img [OK] >> log.txt
+if exist 01-Project\1-Sources\vendor.img echo      Repacking vendor.img [OK] >> log.txt
+if not exist 01-Project\1-Sources\vendor.img echo      Repacking vendor image [FAILED] >> log.txt
 goto:eof
 :build_vendor2
 echo ---- make_ext4fs.exe:  %time% -Repacking to EXT4 vendor.img >> log.txt
 echo                         used commands: make_ext4fs -L vendor -T 2009110000 -S file_contextsv -C fs_configv -l %vsize% -a vendor vendor.img vendor\ >> log.txt
 ::--->commands
-bins\make_ext4fs -L vendor -T 2009110000 -S 01-Project\1-Sources\file_contextsv -C 01-Project\1-Sources\fs_configv -l %vsize% -a vendor %~dp0\02-Output\vendor.img 01-Project\vendor\ >nul 2>nul >> log.txt
+bins\make_ext4fs -L vendor -T 2009110000 -S 01-Project\temp\file_contextsv -C 01-Project\temp\fs_configv -l %vsize% -a vendor 01-Project\1-Sources\vendor.img 01-Project\vendor\ >nul 2>nul >> log.txt
 ::<---commands
-if exist 02-Output\vendor.img echo      Repacking vendor image [OK] >> log.txt
+if exist 01-Project\1-Sources\vendor.img echo      Repacking vendor image [OK] >> log.txt
+if not exist 01-Project\1-Sources\vendor.img echo      Repacking vendor image [FAILED] >> log.txt
+goto:eof
+
+:build_odm
+if exist 01-Project\temp\odm_size set /p odmsize=<"01-Project\temp\odm_size"
+echo ---- make_ext4fs.exe:  %time% -Repacking to EXT4 odm.img >> log.txt
+echo                         used commands: make_ext4fs -L odm -T 2009110000 -S file_contexts -C 01-Project\temp\fs_config_odm -l %odmsize% -a odm odm.img odm\ >> log.txt
+::--->commands
+bins\make_ext4fs -L odm -T 2009110000 -S 01-Project\temp\file_contexts -C 01-Project\temp\fs_config_odm -l %odmsize% -a odm 01-Project\1-Sources\odm.img 01-Project\odm\ >nul 2>nul >> log.txt
+::<---commands
+if exist 01-Project\1-Sources\odm.img echo      Repacking odm image [OK] >> log.txt
+if not exist 01-Project\1-Sources\odm.img echo      Repacking odm image [FAILED] >> log.txt
 goto:eof
 
 
@@ -934,10 +1063,10 @@ echo ---- Zipping new ROM:  %time% >> log.txt
 call :get_ROMs_name
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -971,62 +1100,20 @@ if exist %system%\build.prop for /f "Tokens=2* Delims==" %%# in (
 )
 echo      New ROM's zip name is: >> log.txt
 echo      %rname%_%device%_%rom_version%_%release%.zip >> log.txt 
-if exist 01-Project\1-Sources\vendor.new.dat copy /y 01-Project\1-Sources\vendor.new.dat 02-Output >nul 2>nul
-if exist 01-Project\1-Sources\vendor.new.dat.br copy /y 01-Project\1-Sources\vendor.new.dat.br 02-Output >nul 2>nul
-if exist 01-Project\1-Sources\vendor.transfer.list copy /y 01-Project\1-Sources\vendor.transfer.list 02-Output >nul 2>nul
-copy /y bins\zip-sample.zip 02-Output >nul 2>nul
-copy /y bins\7z.exe 02-Output >nul 2>nul
-copy /y bins\7z.dll 02-Output >nul 2>nul
-copy /y 01-Project\1-Sources\boot.img 02-Output >nul 2>nul
-copy /y 01-Project\1-Sources\file_contexts 02-Output >nul 2>nul
-if exist 01-Project\1-Sources\install xcopy /e /i /y 01-Project\1-Sources\install 02-Output\install >nul 2>nul
-if exist 01-Project\1-Sources\config xcopy /e /i /y 01-Project\1-Sources\config 02-Output\config >nul 2>nul
-if exist 01-Project\1-Sources\firmware xcopy /e /i /y 01-Project\1-Sources\firmware 02-Output\firmware >nul 2>nul
-if exist 01-Project\1-Sources\magisk xcopy /e /i /y 01-Project\1-Sources\magisk 02-Output\magisk >nul 2>nul
-if exist 01-Project\1-Sources\firmware-update xcopy /e /i /y 01-Project\1-Sources\firmware-update 02-Output\firmware-update >nul 2>nul
-if exist 01-Project\1-Sources\META-INF xcopy /e /i /y 01-Project\1-Sources\META-INF 02-Output\META-INF >nul 2>nul
+copy /y bins\zip-sample.zip %~dp0\02-Output >nul 2>nul
+if exist 01-Project\temp\file_contexts copy /y 01-Project\temp\file_contexts 01-Project\1-Sources >nul 2>nul
+::--->commands
+bins\7z a 02-Output\zip-sample.zip .\01-Project\1-Sources\* >nul 2>nul
+::<---commands
 cd 02-Output
-if exist install 7z a "zip-sample.zip" -o+ install -y >nul 2>nul
-if exist config 7z a "zip-sample.zip" -o+ config -y >nul 2>nul
-if exist firmware 7z a "zip-sample.zip" -o+ firmware -y >nul 2>nul
-if exist magisk 7z a "zip-sample.zip" -o+ magisk -y >nul 2>nul
-if exist firmware-update 7z a "zip-sample.zip" -o+ firmware-update -y >nul 2>nul
-if exist META-INF 7z a "zip-sample.zip" -o+ META-INF -y >nul 2>nul
-if exist system.new.dat.br 7z a "zip-sample.zip" -o+ system.new.dat.br -y >nul 2>nul
-if exist system.new.dat 7z a "zip-sample.zip" -o+ system.new.dat -y >nul 2>nul
-if exist system.patch.dat 7z a "zip-sample.zip" -o+ system.patch.dat -y >nul 2>nul
-if exist system.img 7z a "zip-sample.zip" -o+ system.img -y >nul 2>nul
-if exist system.transfer.list 7z a "zip-sample.zip" -o+ system.transfer.list -y >nul 2>nul
-if exist vendor.new.dat.br 7z a "zip-sample.zip" -o+ vendor.new.dat.br -y >nul 2>nul
-if exist vendor.new.dat 7z a "zip-sample.zip" -o+ vendor.new.dat -y >nul 2>nul
-if exist vendor.patch.dat 7z a "zip-sample.zip" -o+ vendor.patch.dat -y >nul 2>nul
-if exist vendor.img 7z a "zip-sample.zip" -o+ vendor.img -y >nul 2>nul
-if exist vendor.transfer.list 7z a "zip-sample.zip" -o+ vendor.transfer.list -y >nul 2>nul
-if exist boot.img 7z a "zip-sample.zip" -o+ boot.img -y >nul 2>nul
-if exist file_contexts 7z a "zip-sample.zip" -o+ file_contexts -y >nul 2>nul
 move /y zip-sample.zip %rname%_%device%_%rom_version%_%release%.zip >nul 2>nul
-echo      Zipped, now cleaning directories and files... >> log.txt
-if exist firmware-update rmdir /q /s firmware-update >nul 2>nul
-if exist install rmdir /q /s install >nul 2>nul
-if exist config rmdir /q /s config >nul 2>nul
-if exist firmware rmdir /q /s firmware >nul 2>nul
-if exist magisk rmdir /q /s magisk >nul 2>nul
-if exist META-INF rmdir /q /s META-INF >nul 2>nul
-if exist system.new.dat.br del system.new.dat.br >nul 2>nul
-if exist system.new.dat del system.new.dat >nul 2>nul
-if exist system.patch.dat del system.patch.dat >nul 2>nul
-if exist system.img del system.img >nul 2>nul
-if exist system.transfer.list del system.transfer.list >nul 2>nul
-if exist vendor.new.dat.br del vendor.new.dat.br >nul 2>nul
-if exist vendor.new.dat del vendor.new.dat >nul 2>nul
-if exist vendor.patch.dat del vendor.patch.dat >nul 2>nul
-if exist vendor.img del vendor.img >nul 2>nul
-if exist vendor.transfer.list del vendor.transfer.list >nul 2>nul
-if exist boot.img del boot.img >nul 2>nul
-if exist file_contexts del file_contexts >nul 2>nul
-if exist 7z.exe del 7z.exe >nul 2>nul
-if exist 7z.dll del 7z.dll >nul 2>nul
 cd ..
+echo      Done. See new ROM's zip in 02-Output folder >> log.txt
+if exist 02-Output\*.zip (
+cd 02-Output
+del *.img >nul
+cd ..
+)
 goto:eof
 
 
@@ -1034,10 +1121,10 @@ goto:eof
 call :get_ROMs_name
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 %cecho%  	{0a}ROM's Info{#}
 echo.
 %cecho%  	-Name: {0b}!rname!{#}  -Deodexed: {0b}!status!{#}
@@ -1099,16 +1186,16 @@ for /f "Tokens=2* Delims==" %%# in (
 if "%rname%"=="" call :name_maker
 goto:eof
 :name_maker
-if exist %system%\build.prop echo ro.build.display.id=NoName >> %system%\build.prop
+if exist %system%\build.prop echo ro.build.display.id=NoName>> %system%\build.prop
 ::if exist %system%\build.prop type 01-Project\temp\NoName >> %system%\build.prop
 goto:eof
 
 
 :rom_info
 ::Know size in bytes for system when building process start
-set /p size=<"01-Project\1-Sources\sys_size.txt"
+set /p size=<"01-Project\temp\sys_size"
 ::Know size in bytes for vendor when building process start
-if exist 01-Project\vendor set /p vsize=<"01-Project\1-Sources\vend_size.txt"
+if exist 01-Project\vendor set /p vsize=<"01-Project\temp\vend_size"
 ::Know format from original .zip
 for /r 01-Project\temp %%a in (*txt) do set format=%%~na
 timeout /t 1 /nobreak > nul
@@ -1158,10 +1245,10 @@ echo ---- Deodex process started: %time% >> log.txt
 set STARTTIME=%TIME%
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-Preparing for deodex {0a}Oreo ROM{#} ...
 echo      Oreo ROM detected >> log.txt
@@ -1173,10 +1260,10 @@ echo.
 :vendor_de_vdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}vendor{#} files ...
 	echo.
@@ -1188,10 +1275,10 @@ for /r %vendor%\app %%b in (*.apk) do (
 for /r %vendor%\app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1235,10 +1322,10 @@ if exist %system%\framework\oat\arm64 rmdir /q /s %system%\framework\oat\arm >nu
 if exist %system%\framework\arm64 rmdir /q /s %system%\framework\arm >nul 2>nul
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}framework{#} files ...
 	echo.
@@ -1261,10 +1348,10 @@ cd ..
 for /r fram_files %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.jar ... >> log.txt
@@ -1307,10 +1394,10 @@ if exist fram_files rmdir /q /s fram_files >nul 2>nul
 :app_de_vdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}app{#} files ...
 	echo.
@@ -1322,10 +1409,10 @@ for /r %system%\app %%b in (*.apk) do (
 for /r %system%\app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1367,10 +1454,10 @@ if exist app_files rmdir /q /s app_files >nul 2>nul
 :priv-app_de_vdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}priv-app{#} files ...
 	echo.
@@ -1382,10 +1469,10 @@ for /r %system%\priv-app %%b in (*.apk) do (
 for /r %system%\priv-app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1446,10 +1533,10 @@ echo ---- Deodex process started: %time% >> log.txt
 set STARTTIME=%TIME%
 cls
 echo.
-echo         *****************************************************
-%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+echo         ***************************************************************
+%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 echo.
-echo         *****************************************************
+echo         ***************************************************************
 echo.
 %cecho%  	-Preparing for deodex {0a}Pie ROM{#} ...
 echo      Pie or Quiche ROM detected >> log.txt
@@ -1461,10 +1548,10 @@ echo.
 :vendor_de_cdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}vendor{#} files ...
 	echo.
@@ -1476,10 +1563,10 @@ for /r %vendor%\app %%b in (*.apk) do (
 for /r %vendor%\app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1535,10 +1622,10 @@ if exist %system%\framework\oat\arm64 rmdir /q /s %system%\framework\oat\arm >nu
 if exist %system%\framework\arm64 rmdir /q /s %system%\framework\arm >nul 2>nul
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}framework{#} files ...
 	echo.
@@ -1561,10 +1648,10 @@ cd ..
 for /r fram_files %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.jar ... >> log.txt
@@ -1619,10 +1706,10 @@ if exist fram_files rmdir /q /s fram_files >nul 2>nul
 :app_de_cdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}app{#} files ...
 	echo.
@@ -1634,10 +1721,10 @@ for /r %system%\app %%b in (*.apk) do (
 for /r %system%\app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1691,10 +1778,10 @@ if exist app_files rmdir /q /s app_files >nul 2>nul
 :priv-app_de_cdex
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Copying {0a}priv-app{#} files ...
 	echo.
@@ -1706,10 +1793,10 @@ for /r %system%\priv-app %%b in (*.apk) do (
 for /r %system%\priv-app %%a in (*.vdex) do (
 	cls
 	echo.
-	echo         *****************************************************
-	%cecho% 	-{06}Welcome to S.U.R.{#} 			{03}[by JamFlux]{#}
+	echo         ***************************************************************
+	%cecho% 	-{06}Welcome to S.U.R.{#} 			          {03}[by JamFlux]{#}
 	echo.
-	echo         *****************************************************
+	echo         ***************************************************************
 	echo.
 	%cecho%  	-Deodexing {0a}%%~na{#} ...
 	echo      Deodexing %%~na.apk ... >> log.txt
@@ -1794,17 +1881,17 @@ rem Change formatting for the start and end times
 	
 :fs_generator
 ::--->commands
-if exist 01-Project\1-Sources\fs_config !busybox! rm -rf 01-Project\1-Sources\fs_config >nul 2>nul
-bins\fs_generator 01-Project\1-Sources\system.img >>01-Project\1-Sources\fs_config
+if exist 01-Project\temp\fs_config !busybox! rm -rf 01-Project\temp\fs_config >nul 2>nul
+bins\fs_generator 01-Project\1-Sources\system.img >>01-Project\temp\fs_config
 ::<---commands
 :fc_finder
 ::file_contexts maker::
-if exist 01-Project\1-Sources\file_contexts !busybox! rm -rf 01-Project\1-Sources\file_contexts >nul 2>nul
+if exist 01-Project\temp\file_contexts !busybox! rm -rf 01-Project\temp\file_contexts >nul 2>nul
 ::--->commands
 bins\fc_finder "01-Project" "01-Project\1-Sources\un_file_contexts" "plat_file_contexts|vendor_file_contexts|nonplat_file_contexts"
-if exist 01-Project\1-Sources\un_file_contexts !busybox! sort -u < 01-Project\1-Sources\un_file_contexts >> 01-Project/1-Sources/file_contexts
+if exist 01-Project\1-Sources\un_file_contexts !busybox! sort -u < 01-Project\1-Sources\un_file_contexts >> 01-Project/temp/file_contexts
 if exist 01-Project\1-Sources\un_file_contexts !busybox! rm -rf 01-Project\1-Sources\un_file_contexts >nul 2>nul
-if exist 01-Project\1-Sources\file_contexts bins\dos2unix -q 01-Project\1-Sources\file_contexts
+if exist 01-Project\temp\file_contexts bins\dos2unix -q 01-Project\temp\file_contexts
 ::<---commands
 goto:eof
 

@@ -21,6 +21,7 @@ bins\make_ext4fs.exe
 bins\payload_dumper.exe
 bins\rmverity.exe
 bins\sdat2img.exe
+bins\simg2img.exe
 bins\sfk.exe
 bins\vdexExtractor.exe
 bins\zip-sample.zip
