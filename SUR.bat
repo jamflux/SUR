@@ -4,7 +4,7 @@ cls
 setlocal enabledelayedexpansion
 set app_name=Simple Unpack and Repack - Android Tool
 set app_description=Extract and Repack system formats for android 5-10
-title %app_name% [v2.0] [64bits] %authors%
+title %app_name% [v2.0.2] [64bits] %authors%
 set authors=[by JamFlux]
 set cecho=bins\cecho.exe
 set busybox=bins\busybox.exe
@@ -245,6 +245,9 @@ if exist 01-Project\1-Sources\vendor.* (goto un_vendor) else goto identify_forma
 
 :un_vendor
 echo ---- Vendor image detected: >> log.txt
+for /l %%N in (30 -1 1) do (
+set /a "min=%%N/60, sec=%%N%%60, n-=1"
+if !sec! lss 10 set sec=0!sec!
 cls
 echo.
 echo         ***************************************************************
@@ -252,15 +255,17 @@ echo         ***************************************************************
 echo.
 echo         ***************************************************************
 echo.
-%cecho%  	-{0a}Vendor image detected.{#} Please, decide:
+%cecho%  	-{0a}Vendor{#} image detected. Please, decide:
 echo.
 echo.
-echo  	1. Unpack			2. Skip
+echo  	U. Unpack			S. Skip
 echo.
-set /p number=*       Select an option: 
-if "%number%"=="1" goto un_vendor_ok
-if "%number%"=="2" goto identify_format
-if not "%number%"=="1" if not "%number%"=="2" goto un_vendor
+echo.
+choice /c:SU1 /n /m "*       Unpack in !min!:!sec! - Please, decide:  " /t:1 /d:1
+if not errorlevel 3 goto :break
+)
+:break
+if errorlevel 2 (goto un_vendor_ok) else goto identify_format
 
 :un_vendor_ok
 echo      Extracting vendor image... >> log.txt
